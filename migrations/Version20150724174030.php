@@ -14,7 +14,7 @@ class Version20150724174030 extends BaseMigration
     /**
      * @param Schema $schema
      */
-    public function up(Schema $schema)
+    public function up(Schema $schema): void
     {
         $this->performDatabaseUpgrade();
 
@@ -49,7 +49,7 @@ class Version20150724174030 extends BaseMigration
     /**
      * @param Schema $schema
      */
-    public function down(Schema $schema)
+    public function down(Schema $schema): void
     {
     }
 }

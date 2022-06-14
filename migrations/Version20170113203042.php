@@ -12,7 +12,7 @@ class Version20170113203042 extends BaseMigration
     /**
      * @param Schema $schema
      */
-    public function up(Schema $schema)
+    public function up(Schema $schema): void
     {
         $this->performDatabaseUpgrade();
         $adjustValueTypesSQL = "UPDATE ProjectPart SET overageType = 'absolute' where overageType = ''";
@@ -22,7 +22,7 @@ class Version20170113203042 extends BaseMigration
     /**
      * @param Schema $schema
      */
-    public function down(Schema $schema)
+    public function down(Schema $schema): void
     {
         // this down() migration is auto-generated, please modify it to your needs
     }

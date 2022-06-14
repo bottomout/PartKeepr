@@ -5,24 +5,24 @@ namespace PartKeepr\CoreBundle\DoctrineMigrations;
 use Doctrine\DBAL\Schema\Schema;
 
 /**
- * Ensures that all existing parts to be no meta parts since prior to that version, no meta parts existed.
+ * Sets all present users to be active.
  */
-class Version20170108122512 extends BaseMigration
+class Version20151208162723 extends BaseMigration
 {
     /**
      * @param Schema $schema
      */
-    public function up(Schema $schema)
+    public function up(Schema $schema): void
     {
         $this->performDatabaseUpgrade();
-        $noMetaPartSQL = 'UPDATE Part SET metaPart = false';
-        $this->addSql($noMetaPartSQL);
+        $activeUsersSQL = 'UPDATE PartKeeprUser SET active = true';
+        $this->addSql($activeUsersSQL);
     }
 
     /**
      * @param Schema $schema
      */
-    public function down(Schema $schema)
+    public function down(Schema $schema): void
     {
         // this down() migration is auto-generated, please modify it to your needs
     }

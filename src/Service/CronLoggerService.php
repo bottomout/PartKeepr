@@ -36,7 +36,7 @@ class CronLoggerService
      */
     public function markCronRun($cronjob)
     {
-        $dql = "SELECT c FROM PartKeepr\CronLoggerBundle\Entity\CronLogger c WHERE c.cronjob = :cronjob";
+        $dql = "SELECT c FROM App\Entity\CronLogger c WHERE c.cronjob = :cronjob";
         $query = $this->entityManager->createQuery($dql);
         $query->setParameter('cronjob', $cronjob);
 
@@ -64,7 +64,7 @@ class CronLoggerService
      */
     public function getInactiveCronjobs($requiredCronjobs)
     {
-        $dql = "SELECT c.cronjob FROM PartKeepr\CronLoggerBundle\Entity\CronLogger c WHERE c.cronjob = :cronjob";
+        $dql = "SELECT c.cronjob FROM App\Entity\CronLogger c WHERE c.cronjob = :cronjob";
         $dql .= ' AND c.lastRunDate > :date';
 
         $query = $this->entityManager->createQuery($dql);
@@ -93,7 +93,7 @@ class CronLoggerService
      */
     public function clear()
     {
-        $dql = "DELETE FROM PartKeepr\CronLoggerBundle\Entity\CronLogger c";
+        $dql = "DELETE FROM App\Entity\CronLogger c";
         $query = $this->entityManager->createQuery($dql);
 
         $query->execute();

@@ -13,7 +13,7 @@ class Version20170601175559 extends BaseMigration
     /**
      * @param Schema $schema
      */
-    public function up(Schema $schema)
+    public function up(Schema $schema): void
     {
         $this->performDatabaseUpgrade();
 
@@ -36,7 +36,7 @@ class Version20170601175559 extends BaseMigration
     /**
      * @param Schema $schema
      */
-    public function down(Schema $schema)
+    public function down(Schema $schema): void
     {
         // this down() migration is auto-generated, please modify it to your needs
     }

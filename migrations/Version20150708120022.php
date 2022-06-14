@@ -12,7 +12,7 @@ class Version20150708120022 extends BaseMigration
     /**
      * @param Schema $schema
      */
-    public function up(Schema $schema)
+    public function up(Schema $schema): void
     {
         $this->performDatabaseUpgrade();
 
@@ -97,7 +97,7 @@ class Version20150708120022 extends BaseMigration
             ->orderBy('parent.rgt - parent.lft')
             ->setMaxResults(1);
 
-        return $this->connection->fetchColumn($queryBuilder->getSQL(), [':nodeid' => $id], 0);
+        return $this->connection->fetchFirstColumn($queryBuilder->getSQL(), [':nodeid' => $id]);
     }
 
     /**
@@ -115,7 +115,7 @@ class Version20150708120022 extends BaseMigration
             ->from($table)
             ->orderBy('id', 'ASC');
 
-        return $this->connection->fetchAll($qb->getSQL());
+        return $this->connection->fetchAllAssociative($qb->getSQL());
     }
 
     /**
@@ -137,13 +137,13 @@ class Version20150708120022 extends BaseMigration
             ->andWhere('node.lft < parent.rgt')
             ->andWhere('node.id = :nodeid');
 
-        return $this->connection->fetchAssoc($qb->getSQL(), [':nodeid' => $id])['level'];
+        return $this->connection->fetchAssociative($qb->getSQL(), [':nodeid' => $id])['level'];
     }
 
     /**
      * @param Schema $schema
      */
-    public function down(Schema $schema)
+    public function down(Schema $schema): void
     {
         // this down() migration is auto-generated, please modify it to your needs
     }

@@ -12,7 +12,7 @@ class Version20151031163951 extends BaseMigration
     /**
      * @param Schema $schema
      */
-    public function up(Schema $schema)
+    public function up(Schema $schema): void
     {
         $footprintRepository = $this->getEM()->getRepository(
             'PartKeeprFootprintBundle:Footprint'
@@ -34,7 +34,7 @@ class Version20151031163951 extends BaseMigration
     /**
      * @param Schema $schema
      */
-    public function down(Schema $schema)
+    public function down(Schema $schema): void
     {
         // this down() migration is auto-generated, please modify it to your needs
     }
