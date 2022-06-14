@@ -1,45 +1,17 @@
-/build
-/setup
-/frontend
-/data/files/FootprintAttachment/*
-/data/files/PartAttachment/*
-/data/files/ProjectAttachment/*
-/data/files/Temporary/*
-/data/iclogo/*
-/data/images/cache/*
-/data/images/footprint/*
-/data/images/iclogo/*
-/data/images/part/*
-/data/images/temp/*
-/data/images/storagelocation/*
-/data/temp/*
-/data/proxies/*
-config.php
-/tests/reports
-/build-setup
-partkeepr.jsb3
-theme/sass/.sass-cache/
-/reports
-/nbproject/
-partkeepr.jsfiles
-app/authkey.php
-app/config/parameters.php
-app/config/parameters_setup.php
 
-/web/bundles/
-/web/images/*
-/web/spritesheets/*
-/web/atelierspierrot/*
-/web/js/*
-/web/css/*
-/app/bootstrap.php.cache
-/app/cache/*
-/app/config/parameters.yml
-/app/logs/*
+###> symfony/framework-bundle ###
+/.env.local
+/.env.local.php
+/.env.*.local
+/config/secrets/prod/prod.decrypt.private.php
+/public/bundles/
+/var/
 /vendor/
-/bin/
-/composer.phar
+###< symfony/framework-bundle ###
 
-!.keep
-!app/logs/.htaccess
-!app/logs/ignore.json
+###> symfony/webpack-encore-bundle ###
+/node_modules/
+/public/build/
+npm-debug.log
+yarn-error.log
+###< symfony/webpack-encore-bundle ###
