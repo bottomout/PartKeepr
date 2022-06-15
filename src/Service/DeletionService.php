@@ -1,12 +1,6 @@
 <?php
-/**
- * Created by PhpStorm.
- * User: felicitus
- * Date: 10/25/17
- * Time: 5:38 PM.
- */
 
-namespace PartKeepr\DoctrineReflectionBundle\Services;
+namespace App\Services;
 
 use Doctrine\ORM\EntityManager;
 use Doctrine\ORM\Mapping\ClassMetadata;

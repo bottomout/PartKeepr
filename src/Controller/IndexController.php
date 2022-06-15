@@ -56,7 +56,7 @@ class IndexController extends AbstractController
             $renderParams['maintenanceTitle'] = $this->getParameter('partkeepr.maintenance.title');
             $renderParams['maintenanceMessage'] = $this->getParameter('partkeepr.maintenance.message');
 
-            return $this->render('@PartKeeprFrontend/maintenance.html.twig', $renderParams);
+            return $this->render('maintenance.html.twig', $renderParams);
         }
 
         $aParameters = [];

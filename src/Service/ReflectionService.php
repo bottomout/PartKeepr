@@ -1,29 +1,28 @@
 <?php
 
-namespace PartKeepr\DoctrineReflectionBundle\Services;
+namespace App\Service;
 
-use Doctrine\Bundle\DoctrineBundle\Registry;
 use Doctrine\Common\Annotations\Reader;
-use Doctrine\ORM\EntityManager;
+use Doctrine\ORM\EntityManagerInterface;
 use Doctrine\ORM\Mapping\ClassMetadata;
 use Doctrine\ORM\Mapping\ClassMetadataInfo;
-use Symfony\Component\Templating\EngineInterface;
+use Symfony\Component\DependencyInjection\ContainerInterface;
 use Symfony\Component\Validator\Constraint;
 use Symfony\Component\Validator\Constraints\NotBlank;
 
 class ReflectionService
 {
-    /** @var EntityManager */
+    /** @var EntityManagerInterface */
     protected $em;
 
     protected $templateEngine;
 
     protected $reader;
 
-    public function __construct(Registry $doctrine, EngineInterface $templateEngine, Reader $reader)
+    public function __construct(EntityManagerInterface $em, ContainerInterface $container, Reader $reader)
     {
-        $this->templateEngine = $templateEngine;
-        $this->em = $doctrine->getManager();
+        $this->templateEngine = $container->get('twig');
+        $this->em = $em;
         $this->reader = $reader;
     }
 
@@ -63,7 +62,7 @@ class ReflectionService
 
         $cm = $this->em->getClassMetadata($entity);
 
-        if ($cm->getReflectionClass()->isSubclassOf("PartKeepr\CategoryBundle\Entity\AbstractCategory")) {
+        if ($cm->getReflectionClass()->isSubclassOf("App\Entity\AbstractCategory")) {
             $parentClass = 'PartKeepr.data.HydraTreeModel';
             $bTree = true;
         }
@@ -89,7 +88,7 @@ class ReflectionService
 
         $targetService = $this->reader->getClassAnnotation(
             $cm->getReflectionClass(),
-            "PartKeepr\DoctrineReflectionBundle\Annotation\TargetService"
+            "App\Annotation\TargetService"
         );
 
         if ($targetService !== null) {
@@ -98,7 +97,7 @@ class ReflectionService
 
         $ignoreIds = $this->reader->getClassAnnotation(
             $cm->getReflectionClass(),
-            "PartKeepr\DoctrineReflectionBundle\Annotation\IgnoreIds"
+            "App\Annotation\IgnoreIds"
         );
 
         if ($ignoreIds !== null) {
@@ -107,7 +106,7 @@ class ReflectionService
             $renderParams['ignoreIds'] = false;
         }
 
-        return $this->templateEngine->render('PartKeeprDoctrineReflectionBundle::model.js.twig', $renderParams);
+        return $this->templateEngine->render('model.js.twig', $renderParams);
     }
 
     /**
@@ -214,7 +213,7 @@ class ReflectionService
         foreach ($cm->getReflectionClass()->getProperties() as $property) {
             $virtualFieldAnnotation = $this->reader->getPropertyAnnotation(
                 $property,
-                'PartKeepr\DoctrineReflectionBundle\Annotation\VirtualField'
+                'App\Annotation\VirtualField'
             );
 
             if ($virtualFieldAnnotation !== null) {
@@ -243,7 +242,7 @@ class ReflectionService
         foreach ($cm->getReflectionClass()->getProperties() as $property) {
             $virtualOneToManyRelation = $this->reader->getPropertyAnnotation(
                 $property,
-                'PartKeepr\DoctrineReflectionBundle\Annotation\VirtualOneToMany'
+                'App\Annotation\VirtualOneToMany'
             );
 
             if ($virtualOneToManyRelation !== null) {
@@ -272,7 +271,7 @@ class ReflectionService
         foreach ($cm->getReflectionClass()->getProperties() as $property) {
             $byReferenceAnnotation = $this->reader->getPropertyAnnotation(
                 $property,
-                'PartKeepr\DoctrineReflectionBundle\Annotation\ByReference'
+                'App\Annotation\ByReference'
             );
 
             if ($byReferenceAnnotation !== null) {

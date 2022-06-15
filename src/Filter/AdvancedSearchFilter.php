@@ -1,15 +1,15 @@
 <?php
 
-namespace PartKeepr\DoctrineReflectionBundle\Filter;
+namespace App\Filter;
 
-use Doctrine\Common\Persistence\ManagerRegistry;
-use Doctrine\ORM\QueryBuilder;
-use Dunglas\ApiBundle\Api\IriConverterInterface;
-use Dunglas\ApiBundle\Api\ResourceInterface;
-use Dunglas\ApiBundle\Doctrine\Orm\Filter\AbstractFilter;
-use PartKeepr\DoctrineReflectionBundle\Services\FilterService;
-use Symfony\Component\HttpFoundation\RequestStack;
+use App\Service\FilterService;
+use ApiPlatform\Core\Api\IriConverterInterface;
+use ApiPlatform\Core\Bridge\Doctrine\Orm\Filter\AbstractFilter;
 use Symfony\Component\PropertyAccess\PropertyAccessorInterface;
+use ApiPlatform\Core\Bridge\Doctrine\Orm\Util\QueryNameGeneratorInterface;
+use Doctrine\ORM\QueryBuilder;
+use Doctrine\Persistence\ManagerRegistry;
+use Symfony\Component\HttpFoundation\RequestStack;
 
 /**
  * Class AdvancedSearchFilter.
@@ -46,7 +46,7 @@ class AdvancedSearchFilter extends AbstractFilter
 
     private $parameterCount = 0;
 
-    private $requestStack;
+    protected $requestStack;
 
     private $joins = [];
 
@@ -73,7 +73,7 @@ class AdvancedSearchFilter extends AbstractFilter
         $this->propertyAccessor = $propertyAccessor;
     }
 
-    public function getDescription(ResourceInterface $resource)
+    public function getDescription(string $resourceClass): array
     {
         return [];
     }
@@ -81,8 +81,10 @@ class AdvancedSearchFilter extends AbstractFilter
     /**
      * {@inheritdoc}
      */
-    public function apply(ResourceInterface $resource, QueryBuilder $queryBuilder)
+    protected function filterProperty(string $property, $value, QueryBuilder $queryBuilder, QueryNameGeneratorInterface $queryNameGenerator, string $resourceClass, string $operationName = null)
     {
+        // TODO I'm not sure what to do about this yet
+
         $request = $this->requestStack->getCurrentRequest();
         if (null === $request) {
             return;

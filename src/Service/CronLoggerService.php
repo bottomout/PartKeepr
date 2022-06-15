@@ -2,8 +2,8 @@
 
 namespace App\Service;
 
-use Doctrine\ORM\EntityManagerInterface;
 use App\Entity\CronLogger;
+use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Console\Application;
 use Symfony\Component\Console\Input\ArrayInput;
 use Symfony\Component\Console\Output\NullOutput;

@@ -1,21 +1,20 @@
 <?php
 
-namespace PartKeepr\DoctrineReflectionBundle\Services;
+namespace App\Service;
 
-use Doctrine\Bundle\DoctrineBundle\Registry;
-use Doctrine\ORM\EntityManager;
-use PartKeepr\DoctrineReflectionBundle\Filter\Filter;
+use App\Filter\Filter;
+use Doctrine\ORM\EntityManagerInterface;
 
 class FilterService
 {
     /**
-     * @var EntityManager
+     * @var EntityManagerInterface
      */
     private $em;
 
-    public function __construct(Registry $registry)
+    public function __construct(EntityManagerInterface $em)
     {
-        $this->em = $registry->getManager();
+        $this->em = $em;
     }
 
     /**

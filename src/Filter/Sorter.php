@@ -1,6 +1,6 @@
 <?php
 
-namespace PartKeepr\DoctrineReflectionBundle\Filter;
+namespace App\Filter;
 
 class Sorter implements AssociationPropertyInterface
 {
