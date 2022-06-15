@@ -1,9 +1,10 @@
 <?php
 
-namespace PartKeepr\CoreBundle\DoctrineMigrations;
+namespace DoctrineMigrations;
 
+use App\BaseMigration;
 use Doctrine\DBAL\Schema\Schema;
-use PartKeepr\StorageLocationBundle\Entity\StorageLocationCategory;
+use App\Entity\StorageLocationCategory;
 
 /**
  * Migrates all storage locations to support categories. Creates a new root category if it doesn't exist, then applies
@@ -19,7 +20,7 @@ class Version20150724174030 extends BaseMigration
         $this->performDatabaseUpgrade();
 
         $repository = $this->getEM()->getRepository(
-            'PartKeeprStorageLocationBundle:StorageLocationCategory'
+            'App:StorageLocationCategory'
         );
 
         $rootNodes = $repository->getRootNodes();
@@ -35,7 +36,7 @@ class Version20150724174030 extends BaseMigration
         }
 
         $storageLocationRepository = $this->getEM()->getRepository(
-            'PartKeeprStorageLocationBundle:StorageLocation'
+            'App:StorageLocation'
         );
 
         $allStorageLocations = $storageLocationRepository->findAll();

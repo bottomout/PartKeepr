@@ -1,9 +1,10 @@
 <?php
 
-namespace PartKeepr\CoreBundle\DoctrineMigrations;
+namespace DoctrineMigrations;
 
+use App\BaseMigration;
 use Doctrine\DBAL\Schema\Schema;
-use PartKeepr\AuthBundle\Entity\UserProvider;
+use App\Entity\UserProvider;
 
 /**
  * Attaches the builtin user provider to all existing users.
@@ -18,7 +19,7 @@ class Version20151001180120 extends BaseMigration
         $this->performDatabaseUpgrade();
 
         $userProviderRepository = $this->getEM()->getRepository(
-            'PartKeeprAuthBundle:UserProvider'
+            'App:UserProvider'
         );
 
         $builtinProvider = $userProviderRepository->findOneBy(['type' => 'Builtin']);
@@ -31,7 +32,7 @@ class Version20151001180120 extends BaseMigration
         }
 
         $repository = $this->getEM()->getRepository(
-            'PartKeeprAuthBundle:User'
+            'App:User'
         );
 
         $users = $repository->findAll();

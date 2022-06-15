@@ -51,7 +51,7 @@ return static function (ContainerConfigurator $container) {
     /**
      * Specifies the database server version
      */
-    $parameters->set('database_version', '10.6');
+    $parameters->set('database_version', 'mariadb-10.6.8');
 
     //======================================================================================================================
     // Mailer Settings

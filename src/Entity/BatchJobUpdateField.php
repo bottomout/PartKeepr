@@ -3,7 +3,6 @@
 namespace App\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
-use App\Entity\BaseEntity;
 use Symfony\Component\Serializer\Annotation\Groups;
 
 /**
@@ -16,7 +15,7 @@ class BatchJobUpdateField extends BaseEntity
     /**
      * The part this batch job update field refers to.
      *
-     * @ORM\ManyToOne(targetEntity="App\Entity\BatchJob", inversedBy="batchJobQueryFields")
+     * @ORM\ManyToOne(targetEntity="App\Entity\BatchJob", inversedBy="batchJobUpdateFields")
      *
      * @var BatchJob
      */

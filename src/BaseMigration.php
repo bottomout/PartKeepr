@@ -1,6 +1,6 @@
 <?php
 
-namespace PartKeepr\CoreBundle\DoctrineMigrations;
+namespace App;
 
 use Doctrine\Migrations\AbstractMigration;
 use Doctrine\ORM\EntityManager;

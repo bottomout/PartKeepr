@@ -1,7 +1,8 @@
 <?php
 
-namespace PartKeepr\CoreBundle\DoctrineMigrations;
+namespace DoctrineMigrations;
 
+use App\BaseMigration;
 use Doctrine\DBAL\Schema\Schema;
 
 /**
@@ -15,7 +16,7 @@ class Version20151031163951 extends BaseMigration
     public function up(Schema $schema): void
     {
         $footprintRepository = $this->getEM()->getRepository(
-            'PartKeeprFootprintBundle:Footprint'
+            'App:Footprint'
         );
 
         $rootNode = $this->getContainer()->get('partkeepr.footprint.category_service')->getRootNode();

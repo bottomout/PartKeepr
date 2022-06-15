@@ -70,7 +70,7 @@ class User extends BaseEntity implements UserInterface, LegacyPasswordAuthentica
     private $lastSeen;
 
     /**
-     * @ORM\ManyToOne(targetEntity="Appe\Entity\UserProvider")
+     * @ORM\ManyToOne(targetEntity="App\Entity\UserProvider")
      * @Groups({"default"})
      */
     private $provider;

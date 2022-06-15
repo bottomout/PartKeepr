@@ -1,7 +1,8 @@
 <?php
 
-namespace PartKeepr\CoreBundle\DoctrineMigrations;
+namespace DoctrineMigrations;
 
+use App\BaseMigration;
 use Doctrine\DBAL\Schema\Schema;
 
 /**

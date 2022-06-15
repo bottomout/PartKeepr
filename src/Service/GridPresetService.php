@@ -1,18 +1,18 @@
 <?php
 
-namespace PartKeepr\FrontendBundle\Services;
+namespace App\Service;
 
-use Doctrine\ORM\EntityManager;
-use PartKeepr\FrontendBundle\Entity\GridPreset;
+use Doctrine\ORM\EntityManagerInterface;
+use App\Entity\GridPreset;
 
 class GridPresetService
 {
     /**
-     * @var EntityManager
+     * @var EntityManagerInterface
      */
     private $entityManager;
 
-    public function __construct(EntityManager $entityManager)
+    public function __construct(EntityManagerInterface $entityManager)
     {
         $this->entityManager = $entityManager;
     }
@@ -21,7 +21,7 @@ class GridPresetService
     {
         $queryBuilder = $this->entityManager->createQueryBuilder();
 
-        $queryBuilder->update("PartKeeprFrontendBundle:GridPreset", "gp")->set("gp.gridDefault", ":default")
+        $queryBuilder->update("App:GridPreset", "gp")->set("gp.gridDefault", ":default")
         ->where("gp.grid = :grid");
 
         $queryBuilder->setParameter("grid", $gridPreset->getGrid());
@@ -36,7 +36,7 @@ class GridPresetService
     {
         $queryBuilder = $this->entityManager->createQueryBuilder();
 
-        $queryBuilder->select("gp.grid", "gp.configuration")->from("PartKeeprFrontendBundle:GridPreset", "gp")->where("gp.gridDefault = :default");
+        $queryBuilder->select("gp.grid", "gp.configuration")->from("App:GridPreset", "gp")->where("gp.gridDefault = :default");
         $queryBuilder->setParameter("default", true);
 
         return $queryBuilder->getQuery()->getArrayResult();

@@ -19,7 +19,7 @@ class StatisticSnapshotUnit
     private $id;
 
     /**
-     * @Mapping\ManyToOne(targetEntity="App\Entity\StatisticSnapshot")
+     * @Mapping\ManyToOne(targetEntity="App\Entity\StatisticSnapshot",inversedBy="units")
      * The statistic snapshot this entity belongs to
      *
      * @var StatisticSnapshot

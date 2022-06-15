@@ -14,7 +14,7 @@ class FootprintImage extends Image
     /**
      * The footprint object.
      *
-     * @ORM\OneToOne(targetEntity="App\Footprint",inversedBy="image")
+     * @ORM\OneToOne(targetEntity="App\Entity\Footprint",inversedBy="image")
      *
      * @var Footprint
      */

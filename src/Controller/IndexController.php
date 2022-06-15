@@ -1,15 +1,45 @@
 <?php
 
-namespace PartKeepr\FrontendBundle\Controller;
+namespace App\Controller;
 
-use Doctrine\Common\Version as DoctrineCommonVersion;
-use Doctrine\DBAL\Version as DBALVersion;
+use App\Kernel;
+use App\Service\GridPresetService;
+use App\Service\SystemService;
 use Doctrine\ORM\Version as ORMVersion;
-use Symfony\Bundle\FrameworkBundle\Controller\Controller;
+use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\Routing\Annotation\Route;
+use Symfony\Component\DependencyInjection\ParameterBag\ContainerBagInterface;
 
-class IndexController extends Controller
+class IndexController extends AbstractController
 {
+    /**
+     * @var ContainerBagInterface
+     */
+    protected $parameterBag;
+
+    /**
+     * @var SystemService
+     */
+    protected $system;
+
+    /**
+     * @var GridPresetService
+     */
+    protected $gridPreset;
+
+    /**
+     * @var Kernel
+     */
+    protected $kernel;
+
+    public function __construct(ContainerBagInterface $parameterBag, SystemService $system, GridPresetService $gridPreset, Kernel $kernel)
+    {
+        $this->parameterBag = $parameterBag;
+        $this->system = $system;
+        $this->gridPreset = $gridPreset;
+        $this->kernel = $kernel;
+    }
+
     /**
      * This is basically a copy of the PartKeepr's legacy index.php.
      *
@@ -17,7 +47,7 @@ class IndexController extends Controller
      */
     public function indexAction()
     {
-        return $this->render('PartKeeprFrontendBundle::index.html.twig', $this->getRenderParameters());
+        return $this->render('index.html.twig', $this->getRenderParameters());
     }
 
     public function getRenderParameters()
@@ -31,13 +61,13 @@ class IndexController extends Controller
 
         $aParameters = [];
         $aParameters['doctrine_orm_version'] = ORMVersion::VERSION;
-        $aParameters['doctrine_dbal_version'] = DBALVersion::VERSION;
-        $aParameters['doctrine_common_version'] = DoctrineCommonVersion::VERSION;
+        // TODO $aParameters['doctrine_dbal_version'] = DBALVersion::VERSION;
+        // TODO $aParameters['doctrine_common_version'] = DoctrineCommonVersion::VERSION;
         $aParameters['php_version'] = phpversion();
         $aParameters['auto_start_session'] = true;
 
-        $maxPostSize = $this->get('partkeepr_systemservice')->getBytesFromHumanReadable(ini_get('post_max_size'));
-        $maxFileSize = $this->get('partkeepr_systemservice')->getBytesFromHumanReadable(ini_get('upload_max_filesize'));
+        $maxPostSize = $this->system->getBytesFromHumanReadable(ini_get('post_max_size'));
+        $maxFileSize = $this->system->getBytesFromHumanReadable(ini_get('upload_max_filesize'));
 
         $aParameters['maxUploadSize'] = min($maxPostSize, $maxFileSize);
 
@@ -70,12 +100,12 @@ class IndexController extends Controller
         $aParameters['tip_of_the_day_uri'] = $this->getParameter('partkeepr.tip_of_the_day_uri');
 
         $aParameters['password_change'] = $this->getParameterWithDefault('partkeepr.auth.allow_password_change', true);
-        $aParameters["patreonStatus"] = $this->get("partkeepr_systemservice")->getPatreonStatus();
+        $aParameters["patreonStatus"] = $this->system->getPatreonStatus();
 
-        $aParameters["defaultGridPresets"] = json_encode($this->get("partkeepr.gridpresetservice")->getDefaultPresets());
+        $aParameters["defaultGridPresets"] = json_encode($this->gridPreset->getDefaultPresets());
         $renderParams = [];
         $renderParams['parameters'] = $aParameters;
-        $renderParams['debug'] = $this->get('kernel')->isDebug();
+        $renderParams['debug'] = $this->kernel->isDebug();
         $renderParams['baseUrl'] = $this->getBaseURL();
 
         return $renderParams;
@@ -100,8 +130,8 @@ class IndexController extends Controller
 
     public function getParameterWithDefault($name, $default)
     {
-        if ($this->container->hasParameter($name)) {
-            return $this->container->getParameter($name);
+        if ($this->parameterBag->has($name)) {
+            return $this->parameterBag->get($name);
         } else {
             return $default;
         }

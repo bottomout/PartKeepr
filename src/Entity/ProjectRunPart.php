@@ -15,7 +15,7 @@ class ProjectRunPart extends BaseEntity
     /**
      * Stores the project run.
      *
-     * @ORM\ManyToOne(targetEntity="App\Entity\ProjectRun")
+     * @ORM\ManyToOne(targetEntity="App\Entity\ProjectRun",inversedBy="parts")
      * @Groups({"default"})
      *
      * @var ProjectRun

@@ -27,7 +27,7 @@ class TipOfTheDayHistory extends BaseEntity
     /**
      * Defines the user.
      *
-     * @ORM\ManyToOne(targetEntity="App\Entity\User")
+     * @ORM\ManyToOne(targetEntity="App\Entity\User",inversedBy="tipHistories")
      * @Groups({"default"})
      *
      * @var App\Entity\User

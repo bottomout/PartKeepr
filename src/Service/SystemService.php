@@ -3,8 +3,7 @@
 namespace App\Service;
 
 use App\Service\CronLoggerService;
-use Doctrine\Persistence\ManagerRegistry;
-use Doctrine\ORM\EntityManager;
+use Doctrine\ORM\EntityManagerInterface;
 use Doctrine\ORM\Tools\SchemaTool;
 use Doctrine\ORM\Version as ORMVersion;
 use GuzzleHttp\Client;
@@ -15,7 +14,7 @@ use Symfony\Component\DependencyInjection\ContainerInterface;
 class SystemService
 {
     /**
-     * @var ManagerRegistry
+     * @var EntityManagerInterface
      */
     private $entityManager;
 
@@ -35,12 +34,12 @@ class SystemService
     private $cronLoggerService;
 
     public function __construct(
-        ManagerRegistry $doctrine,
+        EntityManagerInterface $entityManager,
         ContainerInterface $container,
         VersionService $versionService,
         CronLoggerService $cronLoggerService
     ) {
-        $this->entityManager = $doctrine->getManager();
+        $this->entityManager = $entityManager;
         $this->container = $container;
         $this->versionService = $versionService;
         $this->cronLoggerService = $cronLoggerService;
@@ -208,12 +207,12 @@ class SystemService
         }
 
         $fileEntities = [
-            'PartKeepr\FootprintBundle\Entity\FootprintAttachment',
-            'PartKeepr\FootprintBundle\Entity\FootprintImage',
-            'PartKeepr\ManufacturerBundle\Entity\ManufacturerICLogo',
-            'PartKeepr\PartBundle\Entity\PartAttachment',
-            'PartKeepr\ProjectBundle\Entity\ProjectAttachment',
-            'PartKeepr\StorageLocationBundle\Entity\StorageLocationImage',
+            'App\Entity\FootprintAttachment',
+            'App\Entity\FootprintImage',
+            'App\Entity\ManufacturerICLogo',
+            'App\Entity\PartAttachment',
+            'App\Entity\ProjectAttachment',
+            '\Entity\StorageLocationImage',
         ];
 
         $size = 0;
@@ -299,10 +298,9 @@ class SystemService
 
         try {
             $client = new Client();
-            $request = $client->createRequest('GET', $statusURI, ['timeout' => 3.14]);
-            $request->send();
+            $response = $client->request('GET', $statusURI, ['timeout' => 3.14]);
 
-            return json_decode($request->getResponse()->getBody(), true);
+            return json_decode($response->getBody(), true);
         } catch (\Exception $e) {
             return false;
         }

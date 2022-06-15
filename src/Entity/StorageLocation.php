@@ -25,7 +25,7 @@ class StorageLocation extends BaseEntity
     /**
      * Holds the storage location image.
      *
-     * @ORM\OneToOne(targetEntity="PartKeepr\StorageLocationBundle\Entity\StorageLocationImage",
+     * @ORM\OneToOne(targetEntity="App\Entity\StorageLocationImage",
      *               mappedBy="storageLocation",cascade={"persist", "remove"}, orphanRemoval=true)
      * @Groups({"default"})
      * @UploadedFile()
@@ -37,7 +37,7 @@ class StorageLocation extends BaseEntity
     /**
      * The category of the storage location.
      *
-     * @ORM\ManyToOne(targetEntity="PartKeepr\StorageLocationBundle\Entity\StorageLocationCategory",
+     * @ORM\ManyToOne(targetEntity="App\Entity\StorageLocationCategory",
      *                inversedBy="storageLocations")
      * @Groups({"default"})
      *

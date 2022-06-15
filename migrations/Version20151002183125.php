@@ -1,7 +1,8 @@
 <?php
 
-namespace PartKeepr\CoreBundle\DoctrineMigrations;
+namespace DoctrineMigrations;
 
+use App\BaseMigration;
 use Doctrine\DBAL\Schema\Schema;
 
 /**
@@ -17,7 +18,7 @@ class Version20151002183125 extends BaseMigration
         $this->performDatabaseUpgrade();
 
         $partRepository = $this->getEM()->getRepository(
-            'PartKeeprPartBundle:Part'
+            'App:Part'
         );
 
         $parts = $partRepository->findAll();

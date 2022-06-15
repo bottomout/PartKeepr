@@ -1,7 +1,8 @@
 <?php
 
-namespace PartKeepr\CoreBundle\DoctrineMigrations;
+namespace DoctrineMigrations;
 
+use App\BaseMigration;
 use Doctrine\DBAL\Schema\Schema;
 use PartKeepr\DistributorBundle\Entity\Distributor;
 
@@ -18,7 +19,7 @@ class Version20170601175559 extends BaseMigration
         $this->performDatabaseUpgrade();
 
         $distributorRepository = $this->getEM()->getRepository(
-            'PartKeeprDistributorBundle:Distributor'
+            'App:Distributor'
         );
 
         $distributors = $distributorRepository->findAll();
