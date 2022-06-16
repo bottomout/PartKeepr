@@ -2,6 +2,7 @@
 
 namespace App\Entity;
 
+use App\Annotation\ExtModelName;
 use Doctrine\ORM\Mapping as ORM;
 use App\Annotation\TargetService;
 use Symfony\Component\Serializer\Annotation\Groups;
@@ -10,6 +11,7 @@ use Symfony\Component\Serializer\Annotation\Groups;
  * @ORM\Table(uniqueConstraints={@ORM\UniqueConstraint(name="name_entity_unique", columns={"baseEntity", "name"})})
  * @ORM\Entity()
  * @TargetService(uri="/api/import_presets")
+ * @ExtModelName("PartKeepr.ImportBundle.Entity.ImportPreset")
  */
 class ImportPreset extends BaseEntity
 {

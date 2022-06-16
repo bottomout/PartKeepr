@@ -2,6 +2,7 @@
 
 namespace App\Entity;
 
+use App\Annotation\ExtModelName;
 use Doctrine\ORM\Mapping as ORM;
 use FOS\UserBundle\Model\User as BaseUser;
 use App\Annotation\TargetService;
@@ -27,6 +28,7 @@ use Symfony\Component\Serializer\Annotation\Groups;
  *      )
  * })
  * @TargetService(uri="/api/f_o_s_users")
+ * @ExtModelName("PartKeepr.AuthBundle.Entity.FOSUser")
  */
 class FOSUser extends BaseUser
 {

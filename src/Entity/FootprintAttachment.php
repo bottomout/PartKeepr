@@ -2,6 +2,7 @@
 
 namespace App\Entity;
 
+use App\Annotation\ExtModelName;
 use Doctrine\ORM\Mapping as ORM;
 use App\Entity\UploadedFile;
 
@@ -9,6 +10,7 @@ use App\Entity\UploadedFile;
  * Holds a footprint attachment.
  *
  * @ORM\Entity
+ * @ExtModelName("PartKeepr.FootprintBundle.Entity.FootprintAttachment")
  **/
 class FootprintAttachment extends UploadedFile
 {

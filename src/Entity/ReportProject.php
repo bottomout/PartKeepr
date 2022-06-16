@@ -2,6 +2,7 @@
 
 namespace App\Entity;
 
+use App\Annotation\ExtModelName;
 use Doctrine\ORM\Mapping as ORM;
 use App\Annotation\TargetService;
 use Symfony\Component\Serializer\Annotation\Groups;
@@ -12,6 +13,7 @@ use Symfony\Component\Validator\Constraints as Assert;
  *
  * @ORM\Entity
  * @TargetService("/api/project_report_projects")
+ * @ExtModelName("PartKeepr.ProjectBundle.Entity.ReportProject")
  */
 class ReportProject extends BaseEntity
 {

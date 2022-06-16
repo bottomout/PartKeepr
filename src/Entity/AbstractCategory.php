@@ -2,6 +2,7 @@
 
 namespace App\Entity;
 
+use App\Annotation\ExtModelName;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\ORM\Mapping as ORM;
 use Gedmo\Mapping\Annotation as Gedmo;
@@ -10,6 +11,7 @@ use Symfony\Component\Serializer\Annotation\Groups;
 /**
  * @ORM\MappedSuperclass()
  * @ORM\Table(indexes={@ORM\Index(columns={"lft"}),@ORM\Index(columns={"rgt"})})
+ * @ExtModelName("PartKeepr.CategoryBundle.Entity.AbstractCategory")
  *
  * Represents an abstract category. This class isn't directly usable; you need to inherit it to take advantage of
  * the AbstractCategoryManager.

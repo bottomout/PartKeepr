@@ -2,12 +2,14 @@
 
 namespace App\Entity;
 
+use App\Annotation\ExtModelName;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
  * Holds a storage location image.
  *
  * @ORM\Entity
+ * @ExtModelName("PartKeepr.StorageLocationBundle.Entity.StorageLocationImage")
  **/
 class StorageLocationImage extends Image
 {

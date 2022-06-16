@@ -2,6 +2,7 @@
 
 namespace App\Entity;
 
+use App\Annotation\ExtModelName;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
@@ -9,6 +10,7 @@ use Doctrine\ORM\Mapping as ORM;
  *
  * @ORM\Table(uniqueConstraints={@ORM\UniqueConstraint(name="cronjob", columns={"cronjob"})})
  * @ORM\Entity
+ * @ExtModelName("PartKeepr.CronLoggerBundle.Entity.CronLogger")
  **/
 class CronLogger extends BaseEntity
 {

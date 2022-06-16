@@ -2,6 +2,7 @@
 
 namespace App\Entity;
 
+use App\Annotation\ExtModelName;
 use Doctrine\ORM\Mapping as ORM;
 use App\Annotation\TargetService;
 use Symfony\Component\Serializer\Annotation\Groups;
@@ -14,6 +15,7 @@ use Symfony\Component\Validator\Constraints as Assert;
  *
  * @ORM\Entity
  * @TargetService(uri="/api/si_prefixes")
+ * @ExtModelName("PartKeepr.SiPrefixBundle.Entity.SiPrefix")
  */
 class SiPrefix extends BaseEntity
 {

@@ -2,6 +2,7 @@
 
 namespace App\Entity;
 
+use App\Annotation\ExtModelName;
 use Doctrine\ORM\Mapping as ORM;
 use App\Annotation\TargetService;
 use Symfony\Component\Serializer\Annotation\Groups;
@@ -10,6 +11,7 @@ use Symfony\Component\Serializer\Annotation\Groups;
  * @ORM\Entity
  * @ORM\HasLifecycleCallbacks
  * @TargetService(uri="/api/stock_entries")
+ * @ExtModelName("PartKeepr.StockBundle.Entity.StockEntry")
  */
 class StockEntry extends BaseEntity
 {

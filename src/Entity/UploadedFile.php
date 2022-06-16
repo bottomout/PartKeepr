@@ -2,12 +2,14 @@
 
 namespace App\Entity;
 
+use App\Annotation\ExtModelName;
 use Doctrine\ORM\Mapping as ORM;
 use Ramsey\Uuid\Uuid;
 use Symfony\Component\Serializer\Annotation\Groups;
 
 /**
  * @ORM\MappedSuperclass
+ * @ExtModelName("PartKeepr.UploadedFileBundle.Entity.UploadedFile")
  */
 abstract class UploadedFile extends BaseEntity
 {

@@ -2,6 +2,7 @@
 
 namespace App\Entity;
 
+use App\Annotation\ExtModelName;
 use Doctrine\ORM\Mapping as ORM;
 use App\Annotation\ByReference;
 use App\Annotation\TargetService;
@@ -13,6 +14,7 @@ use Symfony\Component\Validator\Constraints as Assert;
  *
  * @ORM\Entity
  * @TargetService("/api/project_parts")
+ * @ExtModelName("PartKeepr.ProjectBundle.Entity.ProjectPart")
  */
 class ProjectPart extends BaseEntity
 {

@@ -2,28 +2,55 @@
 
 namespace App\Service;
 
+use App\Annotation\ByReference;
+use App\Annotation\ExtModelName;
+use App\Annotation\TargetService;
+use App\Annotation\VirtualField;
+use App\Annotation\VirtualOneToMany;
+use App\Entity\AbstractCategory;
+use App\Kernel;
 use Doctrine\Common\Annotations\Reader;
 use Doctrine\ORM\EntityManagerInterface;
 use Doctrine\ORM\Mapping\ClassMetadata;
 use Doctrine\ORM\Mapping\ClassMetadataInfo;
+use Symfony\Component\Cache\Adapter\AbstractAdapter;
 use Symfony\Component\DependencyInjection\ContainerInterface;
 use Symfony\Component\Validator\Constraint;
 use Symfony\Component\Validator\Constraints\NotBlank;
+use Symfony\Component\Cache\Adapter\FilesystemAdapter;
+use Symfony\Component\Filesystem\Filesystem;
 
 class ReflectionService
 {
-    /** @var EntityManagerInterface */
-    protected $em;
+    public const EntityReverseMapCacheKey = 'app.service.reflection_service.entity_reverse_map';
 
+    protected EntityManagerInterface $em;
     protected $templateEngine;
+    protected Reader $reader;
+    protected AbstractAdapter $cache;
 
-    protected $reader;
-
-    public function __construct(EntityManagerInterface $em, ContainerInterface $container, Reader $reader)
+    public function __construct(EntityManagerInterface $em, ContainerInterface $container, Reader $reader, CacheService $cacheService)
     {
         $this->templateEngine = $container->get('twig');
         $this->em = $em;
         $this->reader = $reader;
+        $this->cache = $cacheService->getCache();
+    }
+
+    public function rebuildEntityReverseMap()
+    {
+        $this->cache->delete(self::EntityReverseMapCacheKey);
+    }
+
+    public function getReverseEntityMap(): array
+    {
+        return $this->cache->get(self::EntityReverseMapCacheKey, function ($item) {
+            $entities = [];
+            foreach ($this->em->getMetadataFactory()->getAllMetadata() as $cm) {
+                $entities[$this->convertPHPToExtJSClassMetadata($cm)] = $cm->getName();
+            }
+            return $entities;
+        });
     }
 
     /**
@@ -39,7 +66,7 @@ class ReflectionService
 
         foreach ($meta as $m) {
             /* @var ClassMetadata $m */
-            $entities[] = $this->convertPHPToExtJSClassName($m->getName());
+            $entities[] = $this->convertPHPToExtJSClassMetadata($m);
         }
 
         return $entities;
@@ -62,7 +89,7 @@ class ReflectionService
 
         $cm = $this->em->getClassMetadata($entity);
 
-        if ($cm->getReflectionClass()->isSubclassOf("App\Entity\AbstractCategory")) {
+        if ($cm->getReflectionClass()->isSubclassOf(AbstractCategory::class)) {
             $parentClass = 'PartKeepr.data.HydraTreeModel';
             $bTree = true;
         }
@@ -82,14 +109,11 @@ class ReflectionService
         $renderParams = [
             'fields'       => $fieldMappings,
             'associations' => $associationMappings,
-            'className'    => $this->convertPHPToExtJSClassName($entity),
+            'className'    => $this->convertPHPToExtJSClassMetadata($cm),
             'parentClass'  => $parentClass,
         ];
 
-        $targetService = $this->reader->getClassAnnotation(
-            $cm->getReflectionClass(),
-            "App\Annotation\TargetService"
-        );
+        $targetService = $this->reader->getClassAnnotation($cm->getReflectionClass(), TargetService::class);
 
         if ($targetService !== null) {
             $renderParams['uri'] = $targetService->uri;
@@ -211,10 +235,7 @@ class ReflectionService
         $fieldMappings = [];
 
         foreach ($cm->getReflectionClass()->getProperties() as $property) {
-            $virtualFieldAnnotation = $this->reader->getPropertyAnnotation(
-                $property,
-                'App\Annotation\VirtualField'
-            );
+            $virtualFieldAnnotation = $this->reader->getPropertyAnnotation($property, VirtualField::class);
 
             if ($virtualFieldAnnotation !== null) {
                 $fieldMappings[] = [
@@ -240,10 +261,7 @@ class ReflectionService
         $virtualRelationMappings = [];
 
         foreach ($cm->getReflectionClass()->getProperties() as $property) {
-            $virtualOneToManyRelation = $this->reader->getPropertyAnnotation(
-                $property,
-                'App\Annotation\VirtualOneToMany'
-            );
+            $virtualOneToManyRelation = $this->reader->getPropertyAnnotation($property, VirtualOneToMany::class);
 
             if ($virtualOneToManyRelation !== null) {
                 $virtualRelationMappings[] =
@@ -269,10 +287,7 @@ class ReflectionService
         $byReferenceMappings = [];
 
         foreach ($cm->getReflectionClass()->getProperties() as $property) {
-            $byReferenceAnnotation = $this->reader->getPropertyAnnotation(
-                $property,
-                'App\Annotation\ByReference'
-            );
+            $byReferenceAnnotation = $this->reader->getPropertyAnnotation($property, ByReference::class);
 
             if ($byReferenceAnnotation !== null) {
                 $byReferenceMappings[] = $property->getName();
@@ -411,16 +426,18 @@ class ReflectionService
         return true;
     }
 
+    public function convertPHPToExtJSClassMetadata(ClassMetadata $cm): string
+    {
+        $extModelName = $this->reader->getClassAnnotation($cm->getReflectionClass(), ExtModelName::class);
+        return $extModelName !== null ? $extModelName->value : str_replace('\\', '.', $cm->getName());
+    }
+
     /**
      * Converts a PHP class name with namespaces to an ExtJS class name with namespaces.
-     *
-     * @param $className
-     *
-     * @return string
      */
     public function convertPHPToExtJSClassName($className)
     {
-        return str_replace('\\', '.', $className);
+        return $this->convertPHPToExtJSClassMetadata($this->em->getClassMetadata($className));
     }
 
     /**
@@ -432,13 +449,16 @@ class ReflectionService
      */
     public function convertExtJSToPHPClassName($className)
     {
-        return str_replace('.', '\\', $className);
+        return isset($this->getReverseEntityMap()[$className]) ? $this->getReverseEntityMap()[$className] : str_replace('.', '\\', $className);
     }
 
     public function createCache($cacheDir)
     {
-        @mkdir($cacheDir, 0777, true);
+        $fs = new Filesystem();
+        $fs->remove($cacheDir);
+        $fs->mkdir($cacheDir);
 
+        $this->rebuildEntityReverseMap();
         $entities = $this->getEntities();
 
         foreach ($entities as $entity) {

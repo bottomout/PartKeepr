@@ -2,6 +2,7 @@
 
 namespace App\Entity;
 
+use App\Annotation\ExtModelName;
 use Doctrine\ORM\Mapping as ORM;
 use App\Annotation\TargetService;
 use Symfony\Component\Serializer\Annotation\Groups;
@@ -11,6 +12,7 @@ use Symfony\Component\Serializer\Annotation\Groups;
  *
  * @ORM\Entity
  * @TargetService(uri="/api/distributors")
+ * @ExtModelName("PartKeepr.DistributorBundle.Entity.Distributor")
  **/
 class Distributor extends BaseEntity
 {

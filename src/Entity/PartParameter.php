@@ -2,6 +2,7 @@
 
 namespace App\Entity;
 
+use App\Annotation\ExtModelName;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Serializer\Annotation\Groups;
 
@@ -10,6 +11,7 @@ use Symfony\Component\Serializer\Annotation\Groups;
  * a numeric value.
  *
  * @ORM\Entity @ORM\HasLifecycleCallbacks
+ * @ExtModelName("PartKeepr.PartBundle.Entity.PartParameter")
  */
 class PartParameter extends BaseEntity
 {

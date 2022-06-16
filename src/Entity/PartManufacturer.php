@@ -2,11 +2,13 @@
 
 namespace App\Entity;
 
+use App\Annotation\ExtModelName;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Serializer\Annotation\Groups;
 
 /**
  * @ORM\Entity
+ * @ExtModelName("PartKeepr.PartBundle.Entity.PartManufacturer")
  */
 class PartManufacturer extends BaseEntity
 {

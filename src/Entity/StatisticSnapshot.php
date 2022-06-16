@@ -2,11 +2,13 @@
 
 namespace App\Entity;
 
+use App\Annotation\ExtModelName;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\ORM\Mapping as Mapping;
 
 /**
  * @Mapping\Entity()
+ * @ExtModelName("PartKeepr.StatisticBundle.Entity.StatisticSnapshot")
  */
 class StatisticSnapshot
 {

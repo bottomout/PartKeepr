@@ -2,13 +2,16 @@
 
 namespace App\Entity;
 
+use App\Annotation\ExtModelName;
 use Doctrine\ORM\Mapping as ORM;
 use App\Annotation\TargetService;
 use App\Annotation\UploadedFile;
 use Symfony\Component\Serializer\Annotation\Groups;
 
-/** @ORM\Entity
+/**
+ * @ORM\Entity
  * @TargetService(uri="/api/storage_locations")
+ * @ExtModelName("PartKeepr.StorageLocationBundle.Entity.StorageLocation")
  */
 class StorageLocation extends BaseEntity
 {

@@ -2,9 +2,13 @@
 
 namespace App\Entity;
 
+use App\Annotation\ExtModelName;
 use Doctrine\ORM\Mapping as ORM;
 
-/** @ORM\MappedSuperclass */
+/**
+ * @ORM\MappedSuperclass
+ * @ExtModelName("PartKeepr.CoreBundle.Entity.BaseEntity")
+ */
 abstract class BaseEntity
 {
     /**

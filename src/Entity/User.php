@@ -2,6 +2,7 @@
 
 namespace App\Entity;
 
+use App\Annotation\ExtModelName;
 use Doctrine\ORM\Mapping as ORM;
 use App\Annotation\TargetService;
 use App\Annotation\VirtualField;
@@ -17,6 +18,7 @@ use Symfony\Component\Validator\Constraints as Assert;
  *      name="PartKeeprUser",
  *      uniqueConstraints={@ORM\UniqueConstraint(name="username_provider", columns={"username", "provider_id"})})
  * @TargetService(uri="/api/users")
+ * @ExtModelName("PartKeepr.AuthBundle.Entity.User")
  */
 class User extends BaseEntity implements UserInterface, LegacyPasswordAuthenticatedUserInterface, EquatableInterface
 {

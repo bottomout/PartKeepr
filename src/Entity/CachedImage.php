@@ -2,6 +2,7 @@
 
 namespace App\Entity;
 
+use App\Annotation\ExtModelName;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
@@ -10,6 +11,7 @@ use Doctrine\ORM\Mapping as ORM;
  * every time a scaled/resized image is requested.
  *
  * @ORM\Entity
+ * @ExtModelName("PartKeepr.ImageBundle.Entity.CachedImage")
  */
 class CachedImage extends BaseEntity
 {

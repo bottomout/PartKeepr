@@ -2,6 +2,7 @@
 
 namespace App\Entity;
 
+use App\Annotation\ExtModelName;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\ORM\Mapping as ORM;
 use Gedmo\Mapping\Annotation as Gedmo;
@@ -14,6 +15,7 @@ use Symfony\Component\Serializer\Annotation\Groups;
  * @ORM\Table(indexes={@ORM\Index(columns={"lft"}),@ORM\Index(columns={"rgt"})})
  * The entity for our footprint categories
  * @TargetService(uri="/api/footprint_categories")
+ * @ExtModelName("PartKeepr.FootprintBundle.Entity.FootprintCategory")
  */
 class FootprintCategory extends AbstractCategory implements CategoryPathInterface
 {

@@ -2,6 +2,7 @@
 
 namespace App\Entity;
 
+use App\Annotation\ExtModelName;
 use Doctrine\ORM\Mapping as ORM;
 use App\Annotation\TargetService;
 
@@ -10,6 +11,7 @@ use App\Annotation\TargetService;
  *
  * @ORM\Entity
  * @TargetService("/api/project_attachments")
+ * @ExtModelName("PartKeepr.ProjectBundle.Entity.ProjectAttachment")
  **/
 class ProjectAttachment extends UploadedFile
 {

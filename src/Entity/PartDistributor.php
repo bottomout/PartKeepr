@@ -2,6 +2,7 @@
 
 namespace App\Entity;
 
+use App\Annotation\ExtModelName;
 use Doctrine\ORM\Mapping as ORM;
 use App\Exception\PackagingUnitOutOfRangeException;
 use Symfony\Component\Serializer\Annotation\Groups;
@@ -11,6 +12,7 @@ use Symfony\Component\Validator\Constraints as Assert;
  * This class represents the link between a part and a distributor.
  *
  * @ORM\Entity
+ * @ExtModelName("PartKeepr.PartBundle.Entity.PartDistributor")
  */
 class PartDistributor extends BaseEntity
 {

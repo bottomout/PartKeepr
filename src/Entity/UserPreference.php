@@ -2,6 +2,7 @@
 
 namespace App\Entity;
 
+use App\Annotation\ExtModelName;
 use Doctrine\ORM\Mapping as ORM;
 use App\Annotation\IgnoreIds;
 use App\Annotation\TargetService;
@@ -18,6 +19,7 @@ use Symfony\Component\Serializer\Annotation\Groups;
  * @ORM\Entity
  * @TargetService(uri="/api/user_preferences")
  * @IgnoreIds()
+ * @ExtModelName("PartKeepr.AuthBundle.Entity.UserPreference")
  **/
 class UserPreference
 {

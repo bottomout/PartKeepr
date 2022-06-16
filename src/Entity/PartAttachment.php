@@ -2,6 +2,7 @@
 
 namespace App\Entity;
 
+use App\Annotation\ExtModelName;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Serializer\Annotation\Groups;
 
@@ -9,6 +10,7 @@ use Symfony\Component\Serializer\Annotation\Groups;
  * Holds a part attachment.
  *
  * @ORM\Entity
+ * @ExtModelName("PartKeepr.PartBundle.Entity.PartAttachment")
  **/
 class PartAttachment extends UploadedFile
 {

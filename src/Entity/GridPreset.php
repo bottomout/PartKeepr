@@ -2,6 +2,7 @@
 
 namespace App\Entity;
 
+use App\Annotation\ExtModelName;
 use Doctrine\ORM\Mapping as ORM;
 use App\Annotation\TargetService;
 use Symfony\Component\Serializer\Annotation\Groups;
@@ -12,6 +13,7 @@ use Symfony\Component\Serializer\Annotation\Groups;
  * @ORM\Table(uniqueConstraints={@ORM\UniqueConstraint(name="name_grid_unique", columns={"grid", "name"})})
  * @ORM\Entity()
  * @TargetService(uri="/api/grid_presets")
+ * @ExtModelName("PartKeepr.FootprintBundle.Entity.FootprintImage")
  */
 class GridPreset extends BaseEntity
 {

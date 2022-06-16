@@ -2,6 +2,7 @@
 
 namespace App\Entity;
 
+use App\Annotation\ExtModelName;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
@@ -9,6 +10,7 @@ use Doctrine\ORM\Mapping as ORM;
  * a user uploaded an image, but not attached it to an entity.
  *
  * @ORM\Entity
+ * @ExtModelName("PartKeepr.ImageBundle.Entity.TempImage")
  */
 class TempImage extends Image
 {

@@ -2,10 +2,12 @@
 
 namespace App\Entity;
 
+use App\Annotation\ExtModelName;
 use Doctrine\ORM\Mapping as Mapping;
 
 /**
  * @Mapping\Entity
+ * @ExtModelName("PartKeepr.StatisticBundle.Entity.StatisticSnapshotUnit")
  */
 class StatisticSnapshotUnit
 {

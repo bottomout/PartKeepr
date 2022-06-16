@@ -2,6 +2,7 @@
 
 namespace App\Entity;
 
+use App\Annotation\ExtModelName;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\ORM\Mapping as ORM;
 use Gedmo\Mapping\Annotation as Gedmo;
@@ -15,6 +16,7 @@ use Symfony\Component\Serializer\Annotation\Groups;
  * The entity for our part categories
  *
  * @TargetService(uri="/api/part_categories")
+ * @ExtModelName("PartKeepr.PartBundle.Entity.PartCategory")
  */
 class PartCategory extends AbstractCategory implements CategoryPathInterface
 {

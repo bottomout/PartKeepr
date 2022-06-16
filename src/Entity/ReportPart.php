@@ -2,6 +2,7 @@
 
 namespace App\Entity;
 
+use App\Annotation\ExtModelName;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\ORM\Mapping as ORM;
 use App\Annotation\TargetService;
@@ -13,6 +14,7 @@ use Symfony\Component\Serializer\Annotation\Groups;
  *
  * @ORM\Entity
  * @TargetService("/api/project_report_parts")
+ * @ExtModelName("PartKeepr.ProjectBundle.Entity.ReportPart")
  */
 class ReportPart extends BaseEntity
 {

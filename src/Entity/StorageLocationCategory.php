@@ -2,6 +2,7 @@
 
 namespace App\Entity;
 
+use App\Annotation\ExtModelName;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\ORM\Mapping as ORM;
 use Gedmo\Mapping\Annotation as Gedmo;
@@ -14,6 +15,7 @@ use Symfony\Component\Serializer\Annotation\Groups;
  * @ORM\Table(indexes={@ORM\Index(columns={"lft"}),@ORM\Index(columns={"rgt"})})
  * The entity for our storage location categories
  * @TargetService(uri="/api/storage_location_categories")
+ * @ExtModelName("PartKeepr.StorageLocationBundle.Entity.StorageLocationCategory")
  */
 class StorageLocationCategory extends AbstractCategory implements CategoryPathInterface
 {

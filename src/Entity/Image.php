@@ -2,6 +2,7 @@
 
 namespace App\Entity;
 
+use App\Annotation\ExtModelName;
 use Doctrine\ORM\Mapping as ORM;
 use App\Exception\InvalidImageTypeException;
 
@@ -9,6 +10,7 @@ use App\Exception\InvalidImageTypeException;
  * This is only a storage class; actual image rendering is done by the ImageRenderer.
  *
  * @ORM\MappedSuperclass
+ * @ExtModelName("PartKeepr.ImageBundle.Entity.Image")
  */
 abstract class Image extends UploadedFile
 {

@@ -2,6 +2,7 @@
 
 namespace App\Entity;
 
+use App\Annotation\ExtModelName;
 use Doctrine\ORM\Mapping as ORM;
 use App\Entity\Image;
 
@@ -9,6 +10,7 @@ use App\Entity\Image;
  * Holds a manufacturer IC logo.
  *
  * @ORM\Entity
+ * @ExtModelName("PartKeepr.ManufacturerBundle.Entity.ManufacturerICLogo")
  **/
 class ManufacturerICLogo extends Image
 {

@@ -2,12 +2,14 @@
 
 namespace App\Entity;
 
+use App\Annotation\ExtModelName;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
  * Holds a footprint image.
  *
  * @ORM\Entity
+ * @ExtModelName("PartKeepr.FootprintBundle.Entity.FootprintImage")
  **/
 class FootprintImage extends Image
 {

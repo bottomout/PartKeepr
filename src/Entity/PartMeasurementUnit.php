@@ -2,6 +2,7 @@
 
 namespace App\Entity;
 
+use App\Annotation\ExtModelName;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\ORM\Mapping as ORM;
 use App\Annotation\TargetService;
@@ -14,6 +15,7 @@ use Symfony\Component\Validator\Constraints as Assert;
  * @ORM\Entity
  * @ORM\Table(name="PartUnit")
  * @TargetService(uri="/api/part_measurement_units")
+ * @ExtModelName("PartKeepr.PartBundle.Entity.PartMeasurementUnit")
  **/
 class PartMeasurementUnit extends BaseEntity
 {
