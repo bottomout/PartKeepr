@@ -26,6 +26,7 @@
         "knplabs/knp-gaufrette-bundle": "^0.7.2",
         "nelmio/api-doc-bundle": "^4.9",
         "nelmio/cors-bundle": "^2.2",
+        "partkeepr/extjs6": "dev-master",
         "phpdocumentor/reflection-docblock": "^5.3",
         "phpseclib/phpseclib": "^3.0",
         "phpstan/phpdoc-parser": "^1.6",
@@ -55,7 +56,8 @@
         "allow-plugins": {
             "composer/package-versions-deprecated": true,
             "symfony/flex": true,
-            "symfony/runtime": true
+            "symfony/runtime": true,
+            "composer/installers": true
         },
         "optimize-autoloader": true,
         "preferred-install": {
