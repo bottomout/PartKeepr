@@ -19,7 +19,7 @@ fos_rest:
     param_fetcher_listener: force
     format_listener:
         rules:
-            - priorities: [json, xml]
+            - priorities: [json]
             - fallback_format: json
     view:
         formats:
